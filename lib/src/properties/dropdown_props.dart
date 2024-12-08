@@ -43,6 +43,7 @@ class DropDownDecoratorProps {
   final TextAlignVertical? textAlignVertical;
   final bool expands;
   final bool isHovering;
+  final bool isFittedBox;
 
   const DropDownDecoratorProps({
     this.decoration,
@@ -51,5 +52,6 @@ class DropDownDecoratorProps {
     this.textAlignVertical,
     this.expands = false,
     this.isHovering = false,
+    this.isFittedBox = false,
   });
 }
