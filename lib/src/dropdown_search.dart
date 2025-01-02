@@ -23,6 +23,7 @@ class DropdownSearch<T> extends BaseDropdownSearch<T> {
     super.onSaved,
     super.validator,
     super.decoratorProps,
+    super.onTap,
   }) : super(
           popupProps: popupProps,
           uiMode: UiMode.material,

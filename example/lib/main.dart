@@ -62,6 +62,8 @@ class MyHomePage extends StatelessWidget {
             children: [
               Expanded(
                 child: DropdownSearch<PopupMode>(
+                  onTap: () {
+                  },
                   key: dropDownKey,
                   selectedItem: PopupMode.menu,
                   itemAsString: (item) => item.name,
@@ -73,7 +75,9 @@ class MyHomePage extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  popupProps: PopupProps.menu(fit: FlexFit.loose, constraints: BoxConstraints()),
+                  popupProps: PopupProps.menu(
+
+                      fit: FlexFit.loose, constraints: BoxConstraints()),
                 ),
               ),
               Padding(padding: EdgeInsets.only(right: 16)),

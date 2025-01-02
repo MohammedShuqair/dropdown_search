@@ -129,6 +129,8 @@ abstract class BaseDropdownSearch<T> extends StatefulWidget {
   ///custom popup properties
   final BasePopupProps<T> popupProps;
 
+  final Function()? onTap;
+
   ///dropdown decoration props
   final DropDownDecoratorProps decoratorProps;
 
@@ -170,6 +172,7 @@ abstract class BaseDropdownSearch<T> extends StatefulWidget {
     this.validator,
     this.chipProps,
     DropDownDecoratorProps? decoratorProps,
+    this.onTap,
   })  : assert(
           T == String || T == int || T == double || compareFn != null,
           '`compareFn` is required',
@@ -230,6 +233,7 @@ abstract class BaseDropdownSearch<T> extends StatefulWidget {
     FormFieldValidator<List<T>>? validator,
     DropDownDecoratorProps? decoratorProps,
     this.chipProps,
+    this.onTap,
   })  : assert(
           T == String || T == int || T == double || compareFn != null,
           '`compareFn` is required',
@@ -345,7 +349,10 @@ class DropdownSearchState<T> extends State<BaseDropdownSearch<T>> {
                     hoverColor: Colors.transparent,
                   )
                 : widget.clickProps,
-            onTap: () => widget.popupProps.mode == PopupMode.autocomplete && isFocused ? null : openDropDownSearch(),
+            onTap: () {
+              widget.onTap?.call();
+              widget.popupProps.mode == PopupMode.autocomplete && isFocused ? null : openDropDownSearch();
+            },
             child: _dropDown(),
           ),
         );
@@ -881,6 +888,7 @@ class DropdownSearchState<T> extends State<BaseDropdownSearch<T>> {
     //fix Duplicate GlobalKey detected in widget tree.
     //if the popup not yet disposed do nothing => solve issue fast click
     if (_popupStateKey.currentState != null) return;
+    widget.onTap?.call();
 
     //handle onBefore popupOpening
     if (widget.onBeforePopupOpening != null) {
@@ -969,6 +977,7 @@ class DropdownSearchState<T> extends State<BaseDropdownSearch<T>> {
 
   ///close dropdownSearch popup if it's open
   void closeDropDownSearch() {
+
     if (widget.popupProps.mode == PopupMode.autocomplete) {
       _customOverlyEntry?.close();
       _customOverlyEntry = null;
